@@ -11,6 +11,11 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, allowedRoles = ['admin', 'chef'] }: ProtectedRouteProps) => {
   const { user, userRole, loading } = useAuth();
 
+  console.log('ProtectedRoute - User:', user ? user.email : 'No user');
+  console.log('ProtectedRoute - UserRole:', userRole);
+  console.log('ProtectedRoute - Loading:', loading);
+  console.log('ProtectedRoute - AllowedRoles:', allowedRoles);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -19,10 +24,22 @@ const ProtectedRoute = ({ children, allowedRoles = ['admin', 'chef'] }: Protecte
     );
   }
 
-  if (!user || !userRole || !allowedRoles.includes(userRole.role)) {
+  if (!user) {
+    console.log('No user - showing login');
     return <AdminLogin />;
   }
 
+  if (!userRole) {
+    console.log('No user role - showing login');
+    return <AdminLogin />;
+  }
+
+  if (!allowedRoles.includes(userRole.role)) {
+    console.log('User role not allowed - showing login');
+    return <AdminLogin />;
+  }
+
+  console.log('Access granted - showing children');
   return <>{children}</>;
 };
 
