@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import Button from '../ui/Button';
+import { Button } from '../ui/button';
 
 const MenuPreview = () => {
   const [activeCategory, setActiveCategory] = useState('morning');

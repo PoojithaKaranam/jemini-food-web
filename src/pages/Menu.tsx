@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import Button from '../components/ui/Button';
+import { Button } from '../components/ui/button';
 
 interface MenuItem {
   id: string;
