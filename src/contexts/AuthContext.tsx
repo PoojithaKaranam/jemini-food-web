@@ -43,7 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       if (user) {
         try {
-          // Get user role from Firestore
           console.log('Fetching user role for:', user.uid);
           const roleDoc = await getDoc(doc(db, 'userRoles', user.uid));
           
@@ -51,15 +50,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             const roleData = roleDoc.data() as UserRole;
             console.log('User role found:', roleData);
             setUserRole(roleData);
+            
+            // Navigate to appropriate dashboard based on role
+            if (roleData.role === 'chef') {
+              console.log('Redirecting to chef panel');
+              window.location.href = '/chef';
+            } else if (roleData.role === 'admin') {
+              console.log('Redirecting to admin dashboard');
+              window.location.href = '/admin';
+            }
           } else {
             console.log('No role document found for user:', user.uid);
-            // Set a default role for testing if no role document exists
-            setUserRole({ role: 'admin' });
+            setUserRole(null);
           }
         } catch (error) {
           console.error('Error fetching user role:', error);
-          // Set a default role for testing in case of error
-          setUserRole({ role: 'admin' });
+          setUserRole(null);
         }
       } else {
         setUserRole(null);

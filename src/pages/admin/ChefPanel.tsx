@@ -30,6 +30,7 @@ const ChefPanel = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log('ChefPanel - Setting up listener for approved orders');
     // Listen only to approved orders and beyond
     const q = query(
       collection(db, 'preorders'),
@@ -41,6 +42,7 @@ const ChefPanel = () => {
         id: doc.id,
         ...doc.data()
       } as PreOrder));
+      console.log('ChefPanel - Orders received:', ordersList);
       setOrders(ordersList.sort((a, b) => a.createdAt?.toDate() - b.createdAt?.toDate()));
     });
 
@@ -49,6 +51,7 @@ const ChefPanel = () => {
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
     try {
+      console.log(`Updating order ${orderId} to status: ${newStatus}`);
       await updateDoc(doc(db, 'preorders', orderId), { 
         status: newStatus 
       });
@@ -195,6 +198,9 @@ const ChefPanel = () => {
           <div className="text-center py-20">
             <p className="text-xl text-muted-foreground">
               No active orders at the moment.
+            </p>
+            <p className="text-sm text-muted-foreground mt-2">
+              Orders will appear here once they are approved by the admin.
             </p>
           </div>
         )}
