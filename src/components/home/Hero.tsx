@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { Button } from '../ui/button';
 
@@ -11,8 +10,17 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary to-background" />
+      {/* Background image - removed brightness filter for clarity */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+        style={{ 
+          backgroundImage: "url('https://png.pngtree.com/thumb_back/fw800/background/20230705/pngtree-sophisticated-bar-and-restaurant-boasting-luxurious-modern-design-featuring-elegant-furnishings-image_3720689.jpg')",
+          imageRendering: 'crisp-edges' // Added for sharper image rendering
+        }} 
+      />
+      
+      {/* Background gradient overlay - reduced opacity for better image clarity */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background/50 via-secondary/30 to-background/50" />
       
       {/* Decorative elements */}
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/10 blur-3xl" />
@@ -25,7 +33,7 @@ const Hero = () => {
             <span className="text-gradient">Jemini Foods</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-white mb-8 max-w-2xl mx-auto leading-relaxed">
             Experience culinary excellence where tradition meets innovation. 
             Every dish tells a story of passion, flavor, and unforgettable moments.
           </p>

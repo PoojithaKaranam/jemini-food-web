@@ -57,8 +57,19 @@ const Menu = () => {
   }
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-20" style={{
+      backgroundImage: 'url(https://wallpaperaccess.com/full/4117465.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      position: 'relative',
+      backgroundRepeat: 'no-repeat',
+      imageRendering: 'crisp-edges'
+    }}>
+      {/* Semi-transparent overlay for better text visibility - removed blur effect */}
+      <div className="absolute inset-0 bg-black/40"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold mb-4">

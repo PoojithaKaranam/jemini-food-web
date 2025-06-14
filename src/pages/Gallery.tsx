@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -49,13 +48,19 @@ const Gallery = () => {
   }
 
   return (
-    <div className="min-h-screen py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div 
+      className="min-h-screen py-20 bg-cover bg-fixed bg-center relative"
+      style={{ backgroundImage: 'url("https://wallpapercave.com/wp/wp10322965.jpg")' }}
+    >
+      {/* Overlay to ensure text readability */}
+      <div className="absolute inset-0 bg-black/50"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4">
+          <h1 className="text-5xl font-bold mb-4 text-white">
             Our <span className="text-gradient">Gallery</span>
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-white/90 max-w-2xl mx-auto">
             Explore the visual journey of our culinary excellence
           </p>
         </div>
@@ -69,7 +74,7 @@ const Gallery = () => {
               className={`px-6 py-3 rounded-full font-medium transition-all duration-300 capitalize ${
                 activeFilter === category
                   ? 'luxury-gradient text-background'
-                  : 'bg-card text-foreground hover:bg-secondary hover-lift'
+                  : 'bg-card/80 text-white hover:bg-secondary hover-lift backdrop-blur-sm'
               }`}
             >
               {category}
@@ -83,7 +88,7 @@ const Gallery = () => {
             {filteredItems.map((item) => (
               <div
                 key={item.id}
-                className="glass-effect rounded-2xl overflow-hidden hover-lift group cursor-pointer"
+                className="glass-effect backdrop-blur-sm rounded-2xl overflow-hidden hover-lift group cursor-pointer"
               >
                 <div className="aspect-square overflow-hidden">
                   <img
@@ -93,15 +98,15 @@ const Gallery = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="text-center py-20">
-            <p className="text-xl text-muted-foreground">
-              No gallery items found. Images will appear here once added by the admin.
+          <div className="text-center py-20 glass-effect backdrop-blur-sm rounded-xl">
+            <p className="text-xl text-white">
+              No {activeFilter !== 'all' ? activeFilter : ''} items found in the gallery
             </p>
           </div>
         )}
